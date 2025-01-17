@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextResponse } from "next/server";
 import { Pinecone } from "@pinecone-database/pinecone";
 import { VoyageEmbeddings } from "@langchain/community/embeddings/voyage";
