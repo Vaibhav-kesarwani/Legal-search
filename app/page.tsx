@@ -121,19 +121,30 @@ export default function Home() {
 
   if (selectedDocument) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-gray-800 to-gray-900 text-white">
+      <div className="min-h-screen bg-gradient-to-b from-gray-800 to-gray-900 text-white flex flex-col">
         <DocumentView
           document={selectedDocument}
           quote={selectedDocument.metadata.pageContent}
           onBack={() => setSelectedDocument(null)}
         />
+        <footer className="text-sm bg-gray-900 text-gray-400 text-center py-4 mt-auto">
+          &copy; 2025{" "}
+          <Link
+            href="https://vaibhavkesarwani.vercel.app/"
+            target="_blank"
+            className="bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text"
+          >
+            Vaibhav Kesarwani.
+          </Link>{" "}
+          All Rights Reserved.
+        </footer>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-800 to-gray-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="min-h-screen bg-gradient-to-b from-gray-800 to-gray-900 text-white flex flex-col">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-grow">
         {errorMessage && <AlertView />}
 
         <div className="flex flex-col items-center w-full mb-8">
@@ -257,7 +268,7 @@ export default function Home() {
           </div>
         )}
       </div>
-      <footer className="text-sm bg-gray-900 text-gray-400 text-center py-4 mt-auto absolute bottom-0 w-full">
+      <footer className="text-sm bg-gray-900 text-gray-400 text-center py-4 mt-auto">
         &copy; 2025{" "}
         <Link
           href="https://vaibhavkesarwani.vercel.app/"
