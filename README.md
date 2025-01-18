@@ -37,15 +37,15 @@ The application leverages a robust backend index of legal documents, which can b
 
 ## Installation:
 1. Clone the repository:
-```bash
-git clone https://github.com/Vaibhav-kesarwani/Legal-search.git
-```
+>```bash
+>git clone https://github.com/Vaibhav-kesarwani/Legal-search.git
+>```
 2. Install dependencies:
-```bash
-pnpm i
-or
-npm i
-```
+>```bash
+>pnpm i
+>or
+>npm i
+>```
 
 3. Setting Up API Keys:
 >1. **Create a `.env` file:** In the root directory of your project, create a .env file. This file will store your sensitive environment variables such as API keys and configuration values.
@@ -53,17 +53,17 @@ npm i
 >> - **Pinecone:** Follow the instructions to obtain the Pinecone API key by visiting [Pinecone's Quickstart Guide.](https://docs.pinecone.io/guides/get-started/quickstart)
 >> - **VoyageAI:** Follow the instructions to obtain the VoyageAI API key by visiting [VoyageAI API Key & Installation Guide.](https://docs.voyageai.com/docs/api-key-and-installation)
 >3. **Store API Keys in `.env` file:** Once you have the keys, add them to your `.env` file. It should look like this:
-```bash
-PINECONE_API_KEY=your_pinecone_api_key_here
-VOYAGE_API_KEY=your_voyageai_api_key_here
-```
+>>>```bash
+>>>PINECONE_API_KEY=your_pinecone_api_key_here
+>>>VOYAGE_API_KEY=your_voyageai_api_key_here
+>>>```
 
-1. Run the development server:
-```bash
-pnpm run dev
-or
-npm run dev
-```
+4. Run the development server:
+>```bash
+>pnpm run dev
+>or
+>npm run dev
+>```
 
 Visit `http://localhost:300` to view the app.
 
