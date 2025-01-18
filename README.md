@@ -48,7 +48,7 @@ The application leverages a robust backend index of legal documents, which can b
 >```
 
 3. Setting Up API Keys:
->1. **Create a `.env` file:** In the root directory of your project, create a .env file. This file will store your sensitive environment variables such as API keys and configuration values.
+>1. **Create a `.env` file:** In the root directory of your project, create a `.env` file. This file will store your sensitive environment variables such as API keys and configuration values.
 >2. **Get API Keys:** You will need API keys from the following services:
 >> - **Pinecone:** Follow the instructions to obtain the Pinecone API key by visiting [Pinecone's Quickstart Guide.](https://docs.pinecone.io/guides/get-started/quickstart)
 >> - **VoyageAI:** Follow the instructions to obtain the VoyageAI API key by visiting [VoyageAI API Key & Installation Guide.](https://docs.voyageai.com/docs/api-key-and-installation)
