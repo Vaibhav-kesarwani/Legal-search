@@ -7,6 +7,7 @@ import SearchForm from "@/components/SearchForm";
 import DocumentView from "@/components/DocumentView";
 import { type Document } from "./types/document";
 import { sanitizeString } from "@/lib/utils";
+import { AlertView } from "@/components/AlertView";
 
 interface SearchResult {
   metadata: Document["metadata"];
@@ -131,15 +132,7 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-b from-gray-800 to-gray-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {errorMessage && (
-          <div className="mb-8 bg-red-600 text-white p-4 rounded-md">
-            <p>{errorMessage}</p>
-            <button
-              onClick={() => setErrorMessage(null)}
-              className="text-sm underline"
-            >
-              Dismiss
-            </button>
-          </div>
+          <AlertView />
         )}
 
         <div className="flex flex-col items-center w-full mb-8">
