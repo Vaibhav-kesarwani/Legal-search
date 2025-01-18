@@ -38,7 +38,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ suggestedSearches, onSearch }) 
           value={query}
           onChange={handleInputChange}
           onFocus={handleFocus}
-          className="text-gray-600 w-full px-4 py-2 border border-gray-400 bg-gray-50 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="text-white w-full px-4 py-2 border border-gray-600 bg-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500"
           placeholder="Search legal docs or view suggestions"
         />
         {query && (
@@ -60,12 +60,12 @@ const SearchForm: React.FC<SearchFormProps> = ({ suggestedSearches, onSearch }) 
           ➔
         </button>
         {showSuggestions && suggestions.length > 0 && (
-          <div className="absolute mt-2 w-full bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto z-10">
-            <div className="px-4 py-2 bg-gray-100 text-blue-800 font-semibold">Popular Searches</div>
+          <div className="absolute mt-2 w-full bg-gray-600 border border-gray-400 rounded-lg shadow-lg max-h-60 overflow-y-auto z-10">
+            <div className="px-4 py-2 bg-gray-300 text-gray-800 font-semibold">Popular Searches</div>
             {suggestions.map((suggestion, index) => (
               <div
                 key={index}
-                className="px-4 py-2 hover:bg-blue-100 cursor-pointer text-gray-700"
+                className="px-4 py-2 hover:bg-black cursor-pointer text-gray-100"
                 onClick={() => setQuery(suggestion)}
               >
                 {suggestion}
