@@ -182,34 +182,34 @@ export default function Home() {
               {results.map((result, index) => (
                 <Card
                   key={index}
-                  className="bg-gray-700 hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+                  className="bg-gray-800 hover:shadow-xl transition-shadow duration-300 cursor-pointer"
                   onClick={() => setSelectedDocument(result)}
                 >
                   <CardContent className="p-6">
-                    <h2 className="text-xl font-semibold mb-3">
+                    <h2 className="text-gray-200 text-xl font-semibold mb-3">
                       {result.metadata.title}
                     </h2>
                     <blockquote className="relative p-4 mb-4 bg-gray-800 rounded-lg">
-                      <p className="line-clamp-4 italic">
+                      <p className="line-clamp-4 italic text-gray-200">
                         {sanitizeString(result.metadata.pageContent)}
                       </p>
                     </blockquote>
                     <div className="space-y-2 text-sm">
                       <div className="flex items-center">
-                        <span className="font-medium w-20">Topic:</span>
-                        <span className="truncate">
+                        <span className="font-medium w-20 text-indigo-300">Topic:</span>
+                        <span className="truncate text-gray-200">
                           {result.metadata.topic}
                         </span>
                       </div>
                       <div className="flex items-center">
-                        <span className="font-medium w-20">Verdict:</span>
-                        <span className="truncate">
+                        <span className="font-medium w-20 text-indigo-300">Verdict:</span>
+                        <span className="truncate text-gray-200">
                           {result.metadata.outcome}
                         </span>
                       </div>
                       <div className="flex items-center">
-                        <span className="font-medium w-20">Date:</span>
-                        <span>
+                        <span className="font-medium w-20 text-indigo-300">Date:</span>
+                        <span className="text-gray-200">
                           {new Date(result.metadata.date).toLocaleDateString()}
                         </span>
                       </div>
