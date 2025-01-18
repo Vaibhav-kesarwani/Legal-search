@@ -98,7 +98,7 @@ export default function Home() {
 
   if (selectedDocument) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      <div className="min-h-screen bg-gradient-to-b from-gray-800 to-gray-900 text-white">
         <DocumentView
           document={selectedDocument}
           quote={selectedDocument.metadata.pageContent}
@@ -109,12 +109,12 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-gray-800 to-gray-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="flex flex-col items-center w-full mb-8">
           {isBootstrapping && (
-            <div className="flex items-center space-x-3 bg-white p-4 rounded-lg shadow-sm">
-              <p className="text-gray-600">Processing legal documents...</p>
+            <div className="flex items-center space-x-3 bg-gray-700 p-4 rounded-lg shadow-sm">
+              <p className="text-gray-300">Processing legal documents...</p>
               <div className="spinner border-4 border-t-transparent border-indigo-600 rounded-full w-5 h-5 animate-spin"></div>
             </div>
           )}
@@ -122,10 +122,10 @@ export default function Home() {
 
         {isIndexReady && !isBootstrapping && (
           <div className="w-full">
-            <h1 className="text-4xl font-bold text-center text-gray-900 mb-3">
+            <h1 className="text-4xl font-bold text-center mb-3">
               Legal Document Search
             </h1>
-            <p className="text-center text-gray-600 text-lg mb-8">
+            <p className="text-center text-gray-300 text-lg mb-8">
               Use natural language to explore legal documents and precedents
             </p>
 
@@ -141,25 +141,25 @@ export default function Home() {
 
             {isSearching && (
               <div className="flex justify-center mb-8">
-                <div className="flex items-center space-x-3 bg-white p-3 rounded-lg shadow-sm">
-                  <p className="text-gray-600">Searching documents...</p>
+                <div className="flex items-center space-x-3 bg-gray-700 p-3 rounded-lg shadow-sm">
+                  <p className="text-gray-300">Searching documents...</p>
                   <div className="spinner border-3 border-t-transparent border-indigo-600 rounded-full w-4 h-4 animate-spin"></div>
                 </div>
               </div>
             )}
 
             {results.length > 0 && query && (
-              <div className="flex justify-between items-center mb-8 bg-white p-4 rounded-lg shadow-sm">
-                <p className="text-gray-700">
+              <div className="flex justify-between items-center mb-8 bg-gray-700 p-4 rounded-lg shadow-sm">
+                <p>
                   Found {results.length} result{results.length > 1 ? "s" : ""}{" "}
                   for{" "}
-                  <span className="font-semibold text-indigo-600">
+                  <span className="font-semibold text-indigo-400">
                     &quot;{query}&quot;
                   </span>
                 </p>
                 <button
                   onClick={clearResults}
-                  className="text-gray-400 hover:text-gray-600 transition-colors"
+                  className="text-gray-400 hover:text-gray-200 transition-colors"
                   aria-label="Clear results"
                 >
                   <svg
@@ -182,39 +182,33 @@ export default function Home() {
               {results.map((result, index) => (
                 <Card
                   key={index}
-                  className="bg-white hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+                  className="bg-gray-700 hover:shadow-xl transition-shadow duration-300 cursor-pointer"
                   onClick={() => setSelectedDocument(result)}
                 >
                   <CardContent className="p-6">
-                    <h2 className="text-xl font-semibold mb-3 text-gray-900">
+                    <h2 className="text-xl font-semibold mb-3">
                       {result.metadata.title}
                     </h2>
-                    <blockquote className="relative p-4 mb-4 bg-gray-50 rounded-lg">
-                      <p className="text-gray-700 line-clamp-4 italic">
+                    <blockquote className="relative p-4 mb-4 bg-gray-800 rounded-lg">
+                      <p className="line-clamp-4 italic">
                         {sanitizeString(result.metadata.pageContent)}
                       </p>
                     </blockquote>
-                    <div className="space-y-2 text-sm text-gray-600">
+                    <div className="space-y-2 text-sm">
                       <div className="flex items-center">
-                        <span className="font-medium text-gray-900 w-20">
-                          Topic:
-                        </span>
+                        <span className="font-medium w-20">Topic:</span>
                         <span className="truncate">
                           {result.metadata.topic}
                         </span>
                       </div>
                       <div className="flex items-center">
-                        <span className="font-medium text-gray-900 w-20">
-                          Verdict:
-                        </span>
+                        <span className="font-medium w-20">Verdict:</span>
                         <span className="truncate">
                           {result.metadata.outcome}
                         </span>
                       </div>
                       <div className="flex items-center">
-                        <span className="font-medium text-gray-900 w-20">
-                          Date:
-                        </span>
+                        <span className="font-medium w-20">Date:</span>
                         <span>
                           {new Date(result.metadata.date).toLocaleDateString()}
                         </span>
