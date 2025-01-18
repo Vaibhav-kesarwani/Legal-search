@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState, useEffect, useRef, ChangeEvent, FormEvent } from "react";
 
 interface SearchFormProps {
   suggestedSearches: string[];
@@ -8,30 +8,52 @@ interface SearchFormProps {
 const SearchForm: React.FC<SearchFormProps> = ({ suggestedSearches, onSearch }) => {
   const [query, setQuery] = useState<string>("");
   const [suggestions] = useState<string[]>(suggestedSearches);
-  const [showSuggestions, setShowSuggestions] = useState<boolean>(true);
+  const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
+    if (e.target.value === "") {
+      setShowSuggestions(true); // Show suggestions if input is empty
+    } else {
+      setShowSuggestions(false); // Hide suggestions if input has text
+    }
   };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     onSearch(query);
     setQuery("");
-    setShowSuggestions(false);
+    setShowSuggestions(false); // Hide suggestions after submitting
   };
 
   const handleFocus = () => {
-    setShowSuggestions(true);
+    if (!query) {
+      setShowSuggestions(true); // Show suggestions on focus only if query is empty
+    }
   };
 
   const handleClear = () => {
     setQuery("");
-    setShowSuggestions(true);
+    setShowSuggestions(true); // Show suggestions when input is cleared
   };
 
+  // Hide suggestions when clicking outside the search form
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+        setShowSuggestions(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="w-full max-w-2xl mx-auto">
+    <div className="w-full max-w-2xl mx-auto" ref={wrapperRef}>
       <form onSubmit={handleSubmit} className="relative w-full">
         <input
           type="text"
@@ -66,7 +88,10 @@ const SearchForm: React.FC<SearchFormProps> = ({ suggestedSearches, onSearch }) 
               <div
                 key={index}
                 className="px-4 py-2 hover:bg-gray-700 cursor-pointer text-gray-100"
-                onClick={() => setQuery(suggestion)}
+                onClick={() => {
+                  setQuery(suggestion);
+                  setShowSuggestions(false); // Hide suggestions after selecting
+                }}
               >
                 {suggestion}
               </div>
