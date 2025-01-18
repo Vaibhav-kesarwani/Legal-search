@@ -2,15 +2,9 @@
 
 ⚖️ Legal Search is an innovative platform that enables users to search and explore legal cases worldwide, providing efficient access to case laws, legal precedents, and comprehensive research tools.
 
-<br />
-
-<details>
-<summary>More about project</summary>
-<br>
 The **Legal Document Search** is a web application that allows users to efficiently explore and search through a collection of legal documents using natural language queries. This app is designed to assist legal professionals, researchers, and anyone interested in legal precedents by providing an easy-to-use interface to search for relevant cases, rulings, and legal concepts.
-<br />
+
 The application leverages a robust backend index of legal documents, which can be dynamically updated and searched in real-time. Users can search for specific cases, statutes, or legal issues, and view detailed results with metadata, including topic, verdict, and date.
-</details>
 
 <br />
 
@@ -24,6 +18,54 @@ The application leverages a robust backend index of legal documents, which can b
 - **Suggested Searches:** The app provides a list of suggested search queries to guide users in exploring specific legal topics.
 - **Error Handling:** Displays informative error messages when the search or bootstrap procedure fails.
 
+## Technologies Used:
+- **Frontend:** Next js, TypeScript, Tailwind CSS
+- **Backend:** Node.js with custom API routes for search and bootstrap procedures
+- **API keys:** Pinecone, voyage (stored laws)
+
+## How It Works:
+- **Bootstrap:** The application initializes the legal document index, ensuring it's ready for searching.
+- **Search:** Users can input queries, and the app fetches relevant documents from the index, displaying the results.
+- **API Fetching:** When user  search the cases it fetch the data from `pinecone` with the help of API.
+- **Display Results:** The search results show important metadata and a brief snippet of each document.
+- **Document View:** Users can view the full document by clicking on a result.
+
+## Future Improvements:
+- Enhance search algorithms to include more advanced filtering and sorting options.
+- Allow for more detailed document views with full-text search and annotations.
+- Improve error handling and performance for larger datasets.
+
+## Installation:
+1. Clone the repository:
+```bash
+git clone https://github.com/Vaibhav-kesarwani/Legal-search.git
+```
+2. Install dependencies:
+```bash
+pnpm i
+or
+npm i
+```
+
+3. API Integration:
+<br />
+>Make `.env` file and and store the copy the keys from the respective websites.
+>> i. https://docs.pinecone.io/guides/get-started/quickstart
+<br />
+>> ii. https://docs.voyageai.com/docs/api-key-and-installation
+```bash
+PINECONE_API_KEY=""
+VOYAGE_API_KEY=""
+```
+
+4. Run the development server:
+```bash
+pnpm run dev
+or
+npm run dev
+```
+
+Visit `http://localhost:300` to view the app.
 
 ## Contributing
 Contributions are welcome! If you'd like to contribute to this project, please follow these steps:
