@@ -47,18 +47,18 @@ or
 npm i
 ```
 
-3. API Integration:
-<br />
->Make `.env` file and and store the copy the keys from the respective websites.
->> i. https://docs.pinecone.io/guides/get-started/quickstart
-<br />
->> ii. https://docs.voyageai.com/docs/api-key-and-installation
+3. Setting Up API Keys:
+>1. **Create a `.env` file:** In the root directory of your project, create a .env file. This file will store your sensitive environment variables such as API keys and configuration values.
+>2. **Get API Keys:** You will need API keys from the following services:
+>> - **Pinecone:** Follow the instructions to obtain the Pinecone API key by visiting [Pinecone's Quickstart Guide.](https://docs.pinecone.io/guides/get-started/quickstart)
+>> - **VoyageAI:** Follow the instructions to obtain the VoyageAI API key by visiting [VoyageAI API Key & Installation Guide.](https://docs.voyageai.com/docs/api-key-and-installation)
+>3. **Store API Keys in `.env` file:** Once you have the keys, add them to your `.env` file. It should look like this:
 ```bash
-PINECONE_API_KEY=""
-VOYAGE_API_KEY=""
+PINECONE_API_KEY=your_pinecone_api_key_here
+VOYAGE_API_KEY=your_voyageai_api_key_here
 ```
 
-4. Run the development server:
+1. Run the development server:
 ```bash
 pnpm run dev
 or
