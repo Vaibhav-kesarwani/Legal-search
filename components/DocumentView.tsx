@@ -31,22 +31,30 @@ export default function DocumentView({ document, quote, onBack }: DocumentViewPr
   }, [quote]);
 
   return (
-    <div className="flex flex-col h-screen bg-gray-50">
-      <div className="p-4 bg-white shadow-md fixed w-full z-10">
-        <button onClick={onBack} className="text-indigo-600 hover:underline">&larr; Back to search</button>
-        <h1 className="text-2xl font-bold text-indigo-900 mt-2">{document.metadata.title}</h1>
+    <div className="flex flex-col h-screen bg-gray-900 text-gray-200">
+      {/* Header Section */}
+      <div className="p-4 bg-gray-800 shadow-md fixed w-full z-10">
+        <button onClick={onBack} className="text-indigo-400 hover:text-indigo-300">
+          &larr; Back to search
+        </button>
+        <h1 className="text-2xl font-bold text-indigo-300 mt-2">{document.metadata.title}</h1>
         <div className="mt-1">
-          <span className="font-semibold text-indigo-900">Topic:</span> {document.metadata.topic}
+          <span className="font-semibold text-indigo-300">Topic:</span> {document.metadata.topic}
         </div>
         <div className="mt-1">
-          <span className="font-semibold text-indigo-900">Verdict:</span> {document.metadata.outcome}
+          <span className="font-semibold text-indigo-300">Verdict:</span> {document.metadata.outcome}
         </div>
         <div className="mt-1">
-          <span className="font-semibold text-indigo-900">Year:</span> {new Date(document.metadata.date).toLocaleDateString()}
+          <span className="font-semibold text-indigo-300">Year:</span> {new Date(document.metadata.date).toLocaleDateString()}
         </div>
       </div>
+
+      {/* Content Section */}
       <div className="mt-24 p-4 overflow-auto flex-1" style={{ paddingTop: '120px' }} ref={contentRef}>
-        <div dangerouslySetInnerHTML={{ __html: sanitizeString(document.metadata.pageContent) }} />
+        <div
+          className="prose prose-invert max-w-none"
+          dangerouslySetInnerHTML={{ __html: sanitizeString(document.metadata.pageContent) }}
+        />
       </div>
     </div>
   );
