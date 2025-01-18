@@ -8,6 +8,7 @@ import DocumentView from "@/components/DocumentView";
 import { type Document } from "./types/document";
 import { sanitizeString } from "@/lib/utils";
 import { AlertView } from "@/components/AlertView";
+import Link from "next/link";
 
 interface SearchResult {
   metadata: Document["metadata"];
@@ -68,9 +69,7 @@ const handleSearch = async (
   if (!response.ok) {
     const body = await response.json();
     console.log(body);
-    setErrorMessage(
-      "Search failed: Unable to find the searched content"
-    );
+    setErrorMessage("Search failed: Unable to find the searched content");
   }
 
   const { results } = await response.json();
@@ -107,7 +106,11 @@ export default function Home() {
 
   useEffect(() => {
     setIsClient(true);
-    checkAndBootstrapIndex(setIsBootstrapping, setIsIndexReady, setErrorMessage);
+    checkAndBootstrapIndex(
+      setIsBootstrapping,
+      setIsIndexReady,
+      setErrorMessage
+    );
   }, []);
 
   const clearResults = () => {
@@ -131,9 +134,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-800 to-gray-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {errorMessage && (
-          <AlertView />
-        )}
+        {errorMessage && <AlertView />}
 
         <div className="flex flex-col items-center w-full mb-8">
           {isBootstrapping && (
@@ -157,7 +158,12 @@ export default function Home() {
               <SearchForm
                 suggestedSearches={suggestedSearches}
                 onSearch={(query: string) => {
-                  handleSearch(query, setResults, setIsSearching, setErrorMessage);
+                  handleSearch(
+                    query,
+                    setResults,
+                    setIsSearching,
+                    setErrorMessage
+                  );
                   setQuery(query);
                 }}
               />
@@ -220,19 +226,25 @@ export default function Home() {
                     </blockquote>
                     <div className="space-y-2 text-sm">
                       <div className="flex items-center">
-                        <span className="font-medium w-20 text-indigo-300">Topic:</span>
+                        <span className="font-medium w-20 text-indigo-300">
+                          Topic:
+                        </span>
                         <span className="truncate text-gray-200">
                           {result.metadata.topic}
                         </span>
                       </div>
                       <div className="flex items-center">
-                        <span className="font-medium w-20 text-indigo-300">Verdict:</span>
+                        <span className="font-medium w-20 text-indigo-300">
+                          Verdict:
+                        </span>
                         <span className="truncate text-gray-200">
                           {result.metadata.outcome}
                         </span>
                       </div>
                       <div className="flex items-center">
-                        <span className="font-medium w-20 text-indigo-300">Date:</span>
+                        <span className="font-medium w-20 text-indigo-300">
+                          Date:
+                        </span>
                         <span className="text-gray-200">
                           {new Date(result.metadata.date).toLocaleDateString()}
                         </span>
@@ -245,6 +257,17 @@ export default function Home() {
           </div>
         )}
       </div>
+      <footer className="text-sm bg-gray-900 text-gray-400 text-center py-4 mt-auto absolute bottom-0 w-full">
+        &copy; 2025{" "}
+        <Link
+          href="https://vaibhavkesarwani.vercel.app/"
+          target="_blank"
+          className="bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text"
+        >
+          Vaibhav Kesarwani.
+        </Link>{" "}
+        All Rights Reserved.
+      </footer>
     </div>
   );
 }
