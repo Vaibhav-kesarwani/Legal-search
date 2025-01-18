@@ -13,7 +13,9 @@ interface SearchResult {
   content: string;
 }
 
-const runBootstrapProcedure = async () => {
+const runBootstrapProcedure = async (
+  setErrorMessage: (message: string) => void
+) => {
   const response = await fetch("/api/bootstrap", {
     method: "POST",
     headers: {
@@ -24,24 +26,34 @@ const runBootstrapProcedure = async () => {
   if (!response.ok) {
     const body = await response.json();
     console.log(body);
+    setErrorMessage(
+      `Bootstrap failed: ${body?.message || "Unknown error occurred"}`
+    );
     throw new Error(`API request failed with status ${response.status}`);
   }
 };
 
 const checkAndBootstrapIndex = async (
   setIsBootstrapping: (isBootstrapping: boolean) => void,
-  setIsIndexReady: (isIndexReady: boolean) => void
+  setIsIndexReady: (isIndexReady: boolean) => void,
+  setErrorMessage: (message: string) => void
 ) => {
   setIsBootstrapping(true);
-  await runBootstrapProcedure();
-  setIsBootstrapping(false);
-  setIsIndexReady(true);
+  try {
+    await runBootstrapProcedure(setErrorMessage);
+    setIsIndexReady(true);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    setIsBootstrapping(false);
+  }
 };
 
 const handleSearch = async (
   query: string,
   setResults: (results: SearchResult[]) => void,
-  setIsSearching: (isSearching: boolean) => void
+  setIsSearching: (isSearching: boolean) => void,
+  setErrorMessage: (message: string) => void
 ) => {
   setIsSearching(true);
   const response = await fetch("/api/search", {
@@ -55,7 +67,9 @@ const handleSearch = async (
   if (!response.ok) {
     const body = await response.json();
     console.log(body);
-    throw new Error(`API request failed with status ${response.status}`);
+    setErrorMessage(
+      "Search failed: Unable to find the searched content"
+    );
   }
 
   const { results } = await response.json();
@@ -78,8 +92,8 @@ const suggestedSearches = [
   "Cases where the judge expressed grave concern",
 ];
 
-export default function Home() {  
-  const [isClient, setIsClient] = useState(false)
+export default function Home() {
+  const [isClient, setIsClient] = useState(false);
   const [isBootstrapping, setIsBootstrapping] = useState(false);
   const [isIndexReady, setIsIndexReady] = useState(false);
   const [query, setQuery] = useState("");
@@ -88,15 +102,17 @@ export default function Home() {
   const [selectedDocument, setSelectedDocument] = useState<SearchResult | null>(
     null
   );
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
     setIsClient(true);
-    checkAndBootstrapIndex(setIsBootstrapping, setIsIndexReady);
+    checkAndBootstrapIndex(setIsBootstrapping, setIsIndexReady, setErrorMessage);
   }, []);
 
   const clearResults = () => {
     setQuery("");
     setResults([]);
+    setErrorMessage(null);
   };
 
   if (selectedDocument) {
@@ -114,6 +130,18 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-800 to-gray-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {errorMessage && (
+          <div className="mb-8 bg-red-600 text-white p-4 rounded-md">
+            <p>{errorMessage}</p>
+            <button
+              onClick={() => setErrorMessage(null)}
+              className="text-sm underline"
+            >
+              Dismiss
+            </button>
+          </div>
+        )}
+
         <div className="flex flex-col items-center w-full mb-8">
           {isBootstrapping && (
             <div className="flex items-center space-x-3 bg-gray-700 p-4 rounded-lg shadow-sm">
@@ -136,7 +164,7 @@ export default function Home() {
               <SearchForm
                 suggestedSearches={suggestedSearches}
                 onSearch={(query: string) => {
-                  handleSearch(query, setResults, setIsSearching);
+                  handleSearch(query, setResults, setIsSearching, setErrorMessage);
                   setQuery(query);
                 }}
               />
