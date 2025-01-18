@@ -65,7 +65,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ suggestedSearches, onSearch }) 
             {suggestions.map((suggestion, index) => (
               <div
                 key={index}
-                className="px-4 py-2 hover:bg-black cursor-pointer text-gray-100"
+                className="px-4 py-2 hover:bg-gray-700 cursor-pointer text-gray-100"
                 onClick={() => setQuery(suggestion)}
               >
                 {suggestion}

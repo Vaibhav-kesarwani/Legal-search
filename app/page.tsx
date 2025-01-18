@@ -144,9 +144,9 @@ export default function Home() {
 
             {isSearching && (
               <div className="flex justify-center mb-8">
-                <div className="flex items-center space-x-3 bg-gray-700 p-3 rounded-lg shadow-sm">
-                  <p className="text-gray-300">Searching documents...</p>
-                  <div className="spinner border-3 border-t-transparent border-indigo-600 rounded-full w-4 h-4 animate-spin"></div>
+                <div className="flex items-center space-x-3 bg-gray-800 p-3 rounded-lg shadow-sm">
+                  <p className="text-gray-400">Searching documents...</p>
+                  <div className="spinner border-3 border-t-transparent border-indigo-700 rounded-full w-4 h-4 animate-spin"></div>
                 </div>
               </div>
             )}
