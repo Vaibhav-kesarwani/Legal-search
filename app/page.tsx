@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { useEffect, useState } from "react";
@@ -77,7 +78,8 @@ const suggestedSearches = [
   "Cases where the judge expressed grave concern",
 ];
 
-export default function Home() {
+export default function Home() {  
+  const [isClient, setIsClient] = useState(false)
   const [isBootstrapping, setIsBootstrapping] = useState(false);
   const [isIndexReady, setIsIndexReady] = useState(false);
   const [query, setQuery] = useState("");
@@ -88,6 +90,7 @@ export default function Home() {
   );
 
   useEffect(() => {
+    setIsClient(true);
     checkAndBootstrapIndex(setIsBootstrapping, setIsIndexReady);
   }, []);
 
